@@ -5,6 +5,12 @@ library(plot3D)
 library(rgl)
 library(plot3Drgl)
 
+############################################################
+# An example of a 3D histogram
+# 
+#
+############################################################
+
 lon <- seq(165.5, 188.5, length.out = 30)
 lat <- seq(-38.5, -10, length.out = 30)
 xy <- table(cut(quakes$long, lon),
@@ -31,6 +37,10 @@ with (quakes, scatter3D(x = long, y = lat,
 plotrgl(new = TRUE) 
 
 ############################################################
+#
+#
+#
+############################################################
 
 image2D(volcano, shade = 0.2, rasterImage = TRUE, main = "volcano",
         contour = list(col = "white", labcex = 0.8, lwd = 3, alpha = 0.5),
@@ -38,6 +48,10 @@ image2D(volcano, shade = 0.2, rasterImage = TRUE, main = "volcano",
 
 plotrgl(new = TRUE)
 
+############################################################
+#
+#
+#
 ############################################################
 
 with(USArrests, text3D(Murder, Assault, Rape, 
