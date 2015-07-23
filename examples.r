@@ -5,8 +5,6 @@ library(plot3D)
 library(rgl)
 library(plot3Drgl)
 
-library(rgl)
-library(plot3Drgl)
 lon <- seq(165.5, 188.5, length.out = 30)
 lat <- seq(-38.5, -10, length.out = 30)
 xy <- table(cut(quakes$long, lon),
