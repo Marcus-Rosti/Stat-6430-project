@@ -37,19 +37,41 @@ with (quakes, scatter3D(x = long, y = lat,
 plotrgl(new = TRUE) 
 
 ############################################################
+# An example of a 2D image plot
 #
-#
-#
+# 
 ############################################################
 
-image2D(volcano, shade = 0.2, rasterImage = TRUE, main = "volcano",
-        contour = list(col = "white", labcex = 0.8, lwd = 3, alpha = 0.5),
-        colkey = list(length = 0.5, width = 0.5)  )
+# an example from r-blogs
+
+image2D(volcano,                   # the data set
+        shade = 0.5,               # the how shaded the image should appear
+        rasterImage = TRUE,        # is the image a raster (an 2D array of valuess)
+        main = "Volcano - 2D Image Example",  # the title
+        contour = list(col = "white", labcex = 0.8, lwd = 3, alpha = 0.75), # describing contour lines
+        colkey = list(length = 0.5, width = 0.5)  ) # describes the size of the key on the right
+
+ # my example
+
+lon <- seq(165.5, 188.5, length.out = 32)
+lat <- seq(-38.5, -10, length.out = 32)
+xy <- table(cut(quakes$long, lon),
+            cut(quakes$lat, lat))  
+xmid <- 0.5*(lon[-1] + lon[-length(lon)])
+ymid <- 0.5*(lat[-1] + lat[-length(lat)])
+
+image2D(x = xmid, y = ymid, z = xy, # the data
+        shade = 0.5,               # the how shaded the image should appear
+        rasterImage = TRUE,        # Should it blur the edges or make it a grid
+        main = "Earthquakes in Fiji",  # the title
+        colkey = list(length = 0.5, width = 0.5)  ) # describes the size of the key on the right
+
 
 plotrgl(new = TRUE)
 
+
 ############################################################
-#
+# An example of a 3D text and scatterplot
 #
 #
 ############################################################
