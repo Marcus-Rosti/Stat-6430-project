@@ -5,6 +5,24 @@ library(plot3D)
 library(rgl)
 library(plot3Drgl)
 
+
+############################################################
+# An example of text3D
+# 
+#
+############################################################
+
+text3D(
+  x,y,z, # define the three coordinates of a point
+  labels #  the fourth variable:text
+  ,colvar=NULL, # the fifth variable: text color
+  phi=40, theta=40, # these two variables determine the viewing direction
+  col=NULL, # color of the text; the default color is black
+  colkey=NULL, # parameters for the color key (legend)
+  clab=, # when colkey is not NULL; the label to be written above the color key
+  main="title" # the main tile of the graph
+)
+
 ############################################################
 # An example of a 3D histogram
 # 
@@ -37,6 +55,23 @@ with (quakes, scatter3D(x = long, y = lat,
 plotrgl(new = TRUE) 
 
 ############################################################
+
+crimes <- read.csv("Crimes_-_2014.csv", header = TRUE)
+crimesSub <- crimes[crimes$Primary.Type == "HOMICIDE", c(20,21)]
+lon <- seq(min(crimesSub$Longitude), max(crimesSub$Longitude), length.out = 30)
+lat <- seq(min(crimesSub$Latitude), max(crimesSub$Latitude), length.out = 30)
+gridCounts <- table(cut(crimesSub$Longitude,lon),
+                    cut(crimesSub$Latitude,lat))
+lonMidPoints <- 0.5*(lon[-1] + lon[-length(lon)])
+latMidPoints <- 0.5*(lat[-1] + lat[-length(lat)])
+
+hist3D(x = lonMidPoints, y = latMidPoints, z = gridCounts, zlim = c(0, 11),
+       main = "Homicides in Chicago: 2014", ylab = "latitude", xlab = "longitude", zlab = "counts",
+       bty= "g", phi = 20, theta = 150, shade = 0.2, col = gg.col(), 
+       border = "black", d = 1, ticktype = "detailed")
+
+plotrgl(new = TRUE) 
+############################################################
 # An example of a 2D image plot
 #
 # 
@@ -48,7 +83,7 @@ image2D(volcano,                   # the data set
         shade = 0.5,               # the how shaded the image should appear
         rasterImage = TRUE,        # is the image a raster (an 2D array of valuess)
         main = "Volcano - 2D Image Example",  # the title
-        contour = list(col = "white", labcex = 0.8, lwd = 3, alpha = 0.75), # describing contour lines
+        contour = list(col = "white", labcex = 0.8, lwd = 3, alpha = 0.25), # describing contour lines
         colkey = list(length = 0.5, width = 0.5)  ) # describes the size of the key on the right
 
  # my example
@@ -68,7 +103,6 @@ image2D(x = xmid, y = ymid, z = xy, # the data
 
 
 plotrgl(new = TRUE)
-
 
 ############################################################
 # An example of a 3D text and scatterplot
